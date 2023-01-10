@@ -1,0 +1,86 @@
+USE master
+GO
+
+CREATE DATABASE BeautySalon
+ 
+GO
+
+USE BeautySalon
+GO
+CREATE TABLE  Serviced(
+    ServiceID int NOT NULL,
+    Servicess varchar(max) NULL,
+    Price int  NULL,
+PRIMARY KEY (ServiceID) )
+
+GO
+
+CREATE TABLE Users(
+  LoginID varchar(25) NOT NULL,
+  UsersFirstName varchar(max) NULL,
+  UsersLastName varchar(max) NULL,
+  UsersEmail varchar(max) NULL,
+  ServiceID int  NULL,
+PRIMARY KEY ( LoginID))
+
+GO
+
+CREATE TABLE Passwordd(
+   LoginID varchar(25) NOT  NULL,
+ Passwordd varchar(50)  NULL,
+PRIMARY KEY ( LoginID))
+
+GO
+CREATE TABLE Ordeer(
+  LoginID varchar(25)  NOT  NULL,
+  ServiceID int NOT   NULL,
+PRIMARY KEY (LoginID,ServiceID ))
+
+GO
+
+CREATE TABLE Masters(
+  MastersID int NOT NULL,
+  FirstName nchar(255)   NULL,
+  LastName nchar(255)    NULL,
+  MastersType  nchar(255)   NULL,
+  ServiceID int  NULL,
+  SalonID int  NULL,
+PRIMARY KEY (MastersID))
+GO
+
+CREATE TABLE SalonCity(
+  SalonID int NOT NULL,
+  CitySalon nchar(255)   NULL,
+PRIMARY KEY (SalonID))
+GO
+--1
+ALTER TABLE Masters
+ADD FOREIGN KEY (SalonID) REFERENCES SalonCity (SalonID )
+
+GO 
+--2
+
+ALTER TABLe  Masters
+ADD FOREIGN KEY (ServiceID) REFERENCES Serviced (ServiceID )
+
+GO 
+--3
+ALTER TABLE Ordeer
+ADD FOREIGN KEY (LoginID) REFERENCES Users (LoginID )
+
+GO 
+
+--4
+
+ALTER TABLE Ordeer
+ADD FOREIGN KEY (ServiceID) REFERENCES Serviced (ServiceID )
+
+GO 
+
+
+--5--
+ALTER TABLE  Passwordd
+ADD FOREIGN KEY (LoginID) REFERENCES Users (LoginID )
+
+GO 
+
